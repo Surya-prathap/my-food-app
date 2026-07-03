@@ -1,43 +1,121 @@
-
+import { LuMilk } from "react-icons/lu";
+import "./Milk.css";
 
 interface MilkItem {
-  id:number,
-  name:string,
-  imageUrl:string,
-  price:number,
-  description:string
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+  description: string;
 }
 
 function Milk() {
-
-  const MilkItems: MilkItem[] = [
-    {id:1,name:"butter milk",imageUrl:"images/milk/butter-milk.png",price:30,description:"fresh butter milk"},
-    {id:2,name:"butter",imageUrl:"images/milk/butter.webp",price:30,description:"fresh butter"},
-    {id:3,name:"cheese",imageUrl:"images/milk/cheese.webp",price:30,description:"fresh cheese"},
-    {id:4,name:"cream",imageUrl:"images/milk/cream.png",price:30,description:"fresh cream"},
-    {id:5,name:"curd",imageUrl:"images/milk/curd.webp",price:30,description:"fresh curd"},
-    {id:6,name:"ghee",imageUrl:"images/milk/ghee.png",price:30,description:"fresh ghee"},
-    {id:7,name:"ice cream",imageUrl:"images/milk/ice-cream.png",price:30,description:"fresh ice cream"},
-    {id:8,name:"milk",imageUrl:"images/milk/milk.webp",price:30,description:"fresh milk"},
-    {id:9,name:"paneer",imageUrl:"images/milk/paneer.webp",price:30,description:"fresh paneer"},
-    {id:10,name:"yogurt",imageUrl:"images/milk/yogurt.png",price:30,description:"fresh yogurt"},
+  const milkItems: MilkItem[] = [
+    {
+      id: 1,
+      name: "Butter Milk",
+      imageUrl: "images/milk/butter-milk.png",
+      price: 30,
+      description: "Refreshing and healthy butter milk."
+    },
+    {
+      id: 2,
+      name: "Butter",
+      imageUrl: "images/milk/butter.webp",
+      price: 60,
+      description: "Creamy and delicious fresh butter."
+    },
+    {
+      id: 3,
+      name: "Cheese",
+      imageUrl: "images/milk/cheese.webp",
+      price: 120,
+      description: "Premium quality cheese for every meal."
+    },
+    {
+      id: 4,
+      name: "Cream",
+      imageUrl: "images/milk/cream.png",
+      price: 70,
+      description: "Fresh dairy cream with rich texture."
+    },
+    {
+      id: 5,
+      name: "Curd",
+      imageUrl: "images/milk/curd.webp",
+      price: 40,
+      description: "Healthy and probiotic rich curd."
+    },
+    {
+      id: 6,
+      name: "Ghee",
+      imageUrl: "images/milk/ghee.png",
+      price: 250,
+      description: "Pure and aromatic cow ghee."
+    },
+    {
+      id: 7,
+      name: "Ice Cream",
+      imageUrl: "images/milk/ice-cream.png",
+      price: 90,
+      description: "Delicious frozen dairy dessert."
+    },
+    {
+      id: 8,
+      name: "Milk",
+      imageUrl: "images/milk/milk.webp",
+      price: 32,
+      description: "Fresh and nutritious milk."
+    },
+    {
+      id: 9,
+      name: "Paneer",
+      imageUrl: "images/milk/paneer.webp",
+      price: 95,
+      description: "Soft and fresh paneer cubes."
+    },
+    {
+      id: 10,
+      name: "Yogurt",
+      imageUrl: "images/milk/yogurt.png",
+      price: 45,
+      description: "Healthy and creamy yogurt."
+    }
   ];
 
-  let items = MilkItems.map((milkItem) => (
-    <li>
-      <img src={milkItem.imageUrl} alt="" width={150} height={150}/>
-        {milkItem.name}
-    </li>
-  ))
-
-
   return (
-    <>
-    <ul>
-      {items}
-    </ul>
-    </>
-  )
+    <div className="milk-page">
+      <h1 className="milk-heading"><LuMilk className="milk-heading-icon"/>Premium Dairy Collection</h1>
+
+      <ul className="milk-container">
+        {milkItems.map((milkItem) => (
+          <li key={milkItem.id} className="milk-card">
+            <img
+              src={milkItem.imageUrl}
+              alt={milkItem.name}
+              className="milk-image"
+            />
+
+            <h3 className="milk-name">{milkItem.name}</h3>
+
+            <p className="milk-description">
+              {milkItem.description}
+            </p>
+
+            <div className="milk-footer">
+              <span className="milk-price">
+                ₹{milkItem.price}
+              </span>
+
+              <button className="milk-btn">
+                Add to Cart
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default Milk
+export default Milk;
