@@ -8,6 +8,8 @@ import Milk from "./Milk";
 import { LuHouse, LuMilk } from "react-icons/lu";
 import { PiCarrotBold } from "react-icons/pi";
 import { GiChickenOven } from "react-icons/gi";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -30,6 +32,15 @@ function App() {
             <Route path="/milk-items" element={<Milk />} />
           </Routes>
         </div>
+
+        <ToastContainer
+            position="top-right"
+            autoClose={2500}
+            toastStyle={{
+                borderRadius: "16px",
+                fontSize: "15px"
+            }}
+        />
 
       </div>
     </BrowserRouter>

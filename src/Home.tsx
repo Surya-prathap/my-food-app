@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
+import { PiCarrotBold } from "react-icons/pi";
+import {  GiChickenOven } from "react-icons/gi";
+import { LuMilk } from "react-icons/lu";
 
 function Home() {
 
@@ -48,7 +51,9 @@ function Home() {
           className="category-card veg-card-home"
           onClick={() => navigate("/veg-items")}
         >
-          <div className="category-icon">🥦</div>
+          <div className="category-icon">
+            <PiCarrotBold/>
+          </div>
 
           <h2>Farm Fresh Vegetables</h2>
 
@@ -62,7 +67,9 @@ function Home() {
           className="category-card nonveg-card-home"
           onClick={() => navigate("/non-veg-items")}
         >
-          <div className="category-icon">🍗</div>
+          <div className="category-icon">
+            <GiChickenOven/>
+          </div>
 
           <h2>Premium Meat & Seafood</h2>
 
@@ -76,7 +83,9 @@ function Home() {
           className="category-card milk-card-home"
           onClick={() => navigate("/milk-items")}
         >
-          <div className="category-icon">🥛</div>
+          <div className="category-icon">
+            <LuMilk/>
+          </div>
 
           <h2>Pure Dairy Essentials</h2>
 

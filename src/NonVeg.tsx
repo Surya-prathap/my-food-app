@@ -1,5 +1,6 @@
-import { GiMeat } from "react-icons/gi";
+import { GiChickenOven } from "react-icons/gi";
 import "./NonVeg.css";
+import { toast } from "react-toastify";
 
 interface NonVegItem {
   id: number;
@@ -12,12 +13,13 @@ interface NonVegItem {
 function NonVeg() {
   const nonVegItems: NonVegItem[] = [
     { id: 1, name: "Chicken", imageUrl: "images/nonveg/chicken.webp", price: 280, description: "Fresh farm chicken" },
-    { id: 2, name: "Crab", imageUrl: "images/nonveg/crab.webp", price: 450, description: "Fresh sea crab" },
-    { id: 3, name: "Duck", imageUrl: "images/nonveg/duck.png", price: 380, description: "Fresh country duck" },
     { id: 4, name: "Eggs", imageUrl: "images/nonveg/eggs.png", price: 90, description: "Fresh farm eggs" },
+    { id: 3, name: "Duck", imageUrl: "images/nonveg/duck.png", price: 380, description: "Fresh country duck" },
+    
     { id: 5, name: "Fish", imageUrl: "images/nonveg/fish.png", price: 320, description: "Fresh river fish" },
     { id: 6, name: "Mutton", imageUrl: "images/nonveg/mutton.png", price: 780, description: "Premium fresh mutton" },
     { id: 7, name: "Prawns", imageUrl: "images/nonveg/prawns.png", price: 620, description: "Fresh jumbo prawns" },
+    { id: 2, name: "Crab", imageUrl: "images/nonveg/crab.webp", price: 450, description: "Fresh sea crab" },
     { id: 8, name: "Sardines", imageUrl: "images/nonveg/sardines.webp", price: 260, description: "Fresh sardines" },
     { id: 9, name: "Squid", imageUrl: "images/nonveg/squid.png", price: 540, description: "Fresh squid" },
     { id: 10, name: "Turkey", imageUrl: "images/nonveg/turkey.png", price: 420, description: "Fresh turkey meat" },
@@ -25,7 +27,7 @@ function NonVeg() {
 
   return (
     <div className="nonveg-page">
-      <h1 className="nonveg-heading"><GiMeat className="nonveg-heading-icon"/>Premium Non-Veg Collection</h1>
+      <h1 className="nonveg-heading"><GiChickenOven className="nonveg-heading-icon"/>Premium Non-Veg Collection</h1>
 
       <ul className="nonveg-container">
         {nonVegItems.map((item) => (
@@ -47,7 +49,7 @@ function NonVeg() {
                 ₹{item.price}/kg
               </span>
 
-              <button className="nonveg-btn">
+              <button className="nonveg-btn" onClick={() => toast.success(`${item.name} added to cart successfully!`)}>
                 Add to Cart
               </button>
             </div>

@@ -1,6 +1,7 @@
 import { FcHome } from "react-icons/fc";
 import "./VegItems.css";
 import { PiCarrotBold } from "react-icons/pi";
+import { toast } from "react-toastify";
 
 interface VegItem {
   id: number;
@@ -108,7 +109,7 @@ function VegItems() {
                 ₹{veg.price}/kg
               </span>
 
-              <button className="buy-btn">
+              <button className="buy-btn" onClick={() => toast.success(`${veg.name} added to cart successfully!`)}>
                 Add to Cart
               </button>
             </div>

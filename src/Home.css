@@ -5,14 +5,26 @@
 /* ================= HERO SECTION ================= */
 
 .hero-section{
-    background: linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #f8faff 50%,
-        #f5f7ff 100%
-    );
+    position: relative;
 
-    padding: 90px 70px;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(104,129,235,0.08),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(34,197,94,0.06),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fafcff
+        );
+
+    padding: 95px 70px;
 
     border-radius: 36px;
 
@@ -22,7 +34,7 @@
 
     box-shadow:
         0 10px 30px rgba(15,23,42,0.03),
-        0 25px 60px rgba(15,23,42,0.06);
+        0 30px 70px rgba(15,23,42,0.07);
 
     overflow: hidden;
 }
@@ -35,13 +47,15 @@
 .hero-tag{
     display: inline-block;
 
-    padding: 10px 22px;
+    padding: 10px 24px;
 
-    margin-bottom: 28px;
+    margin-bottom: 30px;
 
     border-radius: 999px;
 
-    background: #eef2ff;
+    background: rgba(104,129,235,0.12);
+
+    border: 1px solid rgba(104,129,235,0.15);
 
     color: #606de1;
 
@@ -49,6 +63,8 @@
     font-weight: 700;
 
     letter-spacing: 0.5px;
+
+    backdrop-filter: blur(8px);
 }
 
 .hero-title{
@@ -78,6 +94,8 @@
     line-height: 1.9;
 }
 
+/* ================= BUTTON ================= */
+
 .shop-btn{
     border: none;
 
@@ -103,8 +121,8 @@
 
 .shop-btn:hover{
     transform:
-        translateY(-4px)
-        scale(1.03);
+        translateY(-5px)
+        scale(1.04);
 
     background: linear-gradient(
         135deg,
@@ -113,7 +131,7 @@
     );
 
     box-shadow:
-        0 14px 30px rgba(90,103,216,0.30);
+        0 16px 35px rgba(90,103,216,0.35);
 }
 
 /* ================= CATEGORIES ================= */
@@ -146,21 +164,57 @@
     cursor: pointer;
 
     text-align: center;
+
+    overflow: hidden;
 }
 
 .category-card:hover{
     transform:
-        translateY(-12px)
-        scale(1.02);
+        translateY(-14px)
+        scale(1.025);
 
     box-shadow:
-        0 24px 50px rgba(15,23,42,0.08);
+        0 28px 60px rgba(15,23,42,0.10);
 }
 
 .category-icon{
-    font-size: 54px;
+    width: 92px;
+    height: 92px;
 
-    margin-bottom: 24px;
+    margin: 0 auto 28px;
+
+    border-radius: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 42px;
+
+    transition: all 0.35s ease;
+}
+
+.category-card:hover .category-icon{
+    transform:
+        scale(1.1)
+        rotate(-5deg);
+}
+
+/* Category Icon Colors */
+
+.veg-card-home .category-icon{
+    color: #22c55e;
+    background: #f0fdf4;
+}
+
+.nonveg-card-home .category-icon{
+    color: #ef4444;
+    background: #fef2f2;
+}
+
+.milk-card-home .category-icon{
+    color: #3b82f6;
+    background: #eff6ff;
 }
 
 .category-card h2{
@@ -180,7 +234,7 @@
     line-height: 1.8;
 }
 
-/* Accent Colors */
+/* Accent Borders */
 
 .veg-card-home{
     border-top: 6px solid #22c55e;
@@ -223,7 +277,9 @@
     }
 
     .category-icon{
-        font-size: 46px;
+        width: 78px;
+        height: 78px;
+        font-size: 36px;
     }
 
     .category-card h2{

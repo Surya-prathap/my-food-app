@@ -1,5 +1,6 @@
 import { LuMilk } from "react-icons/lu";
 import "./Milk.css";
+import { toast } from "react-toastify";
 
 interface MilkItem {
   id: number;
@@ -107,7 +108,7 @@ function Milk() {
                 ₹{milkItem.price}
               </span>
 
-              <button className="milk-btn">
+              <button className="milk-btn" onClick={() => toast.success(`${milkItem.name} added to cart successfully!`)}>
                 Add to Cart
               </button>
             </div>
