@@ -1,7 +1,8 @@
-import { FcHome } from "react-icons/fc";
+
 import "./VegItems.css";
 import { PiCarrotBold } from "react-icons/pi";
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 interface VegItem {
   id: number;
@@ -85,9 +86,85 @@ function VegItems() {
     }
   ];
 
+  interface Employee {
+  id: number;
+  employee_name: string;
+  employee_salary: number;
+  employee_age: number;
+  profile_image: string;
+}
+
+interface EmployeeResponse {
+  status: string;
+  data: Employee;
+  message: string;
+}
+
+const [employeeResponse, setEmployeeResponse] =
+  useState<EmployeeResponse | null>(null);
+
+useEffect(() => {
+  fetch("https://dummy.restapiexample.com/api/v1/employee/2")
+    .then((response) => response.json())
+    .then((employeeResponse: EmployeeResponse) => {
+      setEmployeeResponse(employeeResponse);
+    });
+}, []);
+
   return (
     <div className="veg-page">
       <h1 className="veg-heading"><PiCarrotBold className="veg-heading-icon"/> Fresh Vegetables</h1>
+
+       <div>
+      <h1>Employee Details</h1>
+
+      {employeeResponse && (
+        // <div>
+        //   <h2>status:{employeeResponse?.status}</h2>
+        //   <h2>{employeeResponse?.data.employee_name}</h2>
+        //   <p>ID: {employeeResponse?.data.id}</p>
+        //   <p>Salary: {employeeResponse?.data.employee_salary}</p>
+        //   <p>Age: {employeeResponse?.data.employee_age}</p>
+        //   <p>message: {employeeResponse?.message}</p>
+        // </div>
+
+        <div className="max-w-sm mx-auto mt-10 bg-white rounded-lg shadow-md border p-6">
+  <h2 className="text-green-600 font-semibold mb-4">
+    {employeeResponse?.status}
+  </h2>
+
+  <h1 className="text-2xl font-bold text-gray-800 mb-6">
+    {employeeResponse?.data.employee_name}
+  </h1>
+
+  <div className="space-y-3">
+    <div className="flex justify-between border-b pb-2">
+      <span className="text-gray-500">Employee ID</span>
+      <span className="font-medium">{employeeResponse?.data.id}</span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span className="text-gray-500">Salary</span>
+      <span className="font-medium">
+        ₹{employeeResponse?.data.employee_salary}
+      </span>
+    </div>
+
+    <div className="flex justify-between border-b pb-2">
+      <span className="text-gray-500">Age</span>
+      <span className="font-medium">
+        {employeeResponse?.data.employee_age}
+      </span>
+    </div>
+
+    <div className="flex justify-between">
+      <span className="text-gray-500">Message</span>
+      <span className="font-medium">{employeeResponse?.message}</span>
+    </div>
+  </div>
+</div>
+      )}
+    </div>
 
       <ul className="veg-container">
         {vegItems.map((veg) => (

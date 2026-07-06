@@ -10,6 +10,7 @@ import { PiCarrotBold } from "react-icons/pi";
 import { GiChickenOven } from "react-icons/gi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Register from "./components/Register";
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
           <NavLink className="nav-link" to="/veg-items"><PiCarrotBold size={30}/>Veg Items</NavLink>
           <NavLink className="nav-link" to="/non-veg-items"><GiChickenOven size={30}/>Non Veg Items</NavLink>
           <NavLink className="nav-link" to="/milk-items"><LuMilk size={30}/>Milk Items</NavLink>
+          <NavLink className="nav-link" to="/register">Register</NavLink>
+
         </nav>
 
         <div className="content-container">
@@ -30,6 +33,7 @@ function App() {
             <Route path="/veg-items" element={<VegItems />} />
             <Route path="/non-veg-items" element={<NonVeg />} />
             <Route path="/milk-items" element={<Milk />} />
+            <Route path="/register" element={<Register/>} />
           </Routes>
         </div>
 
