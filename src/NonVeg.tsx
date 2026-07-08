@@ -2,21 +2,26 @@ import { GiChickenOven } from "react-icons/gi";
 import "./NonVeg.css";
 import { toast } from "react-toastify";
 import type { Product } from "./interfaces/Product";
+import { useContext } from "react";
+import { CartContext } from "./contextApi/CartContext";
 
 
 function NonVeg() {
+
+  let {addToCart} = useContext(CartContext);
+
   const nonVegItems: Product[] = [
-    { id: 1, name: "Chicken", imageUrl: "images/nonveg/chicken.webp", price: 280, description: "Fresh farm chicken" },
-    { id: 4, name: "Eggs", imageUrl: "images/nonveg/eggs.png", price: 90, description: "Fresh farm eggs" },
-    { id: 3, name: "Duck", imageUrl: "images/nonveg/duck.png", price: 380, description: "Fresh country duck" },
+    { id: 11, name: "Chicken", imageUrl: "images/nonveg/chicken.webp", price: 280, description: "Fresh farm chicken" },
+    { id: 12, name: "Eggs", imageUrl: "images/nonveg/eggs.png", price: 90, description: "Fresh farm eggs" },
+    { id: 13, name: "Duck", imageUrl: "images/nonveg/duck.png", price: 380, description: "Fresh country duck" },
     
-    { id: 5, name: "Fish", imageUrl: "images/nonveg/fish.png", price: 320, description: "Fresh river fish" },
-    { id: 6, name: "Mutton", imageUrl: "images/nonveg/mutton.png", price: 780, description: "Premium fresh mutton" },
-    { id: 7, name: "Prawns", imageUrl: "images/nonveg/prawns.png", price: 620, description: "Fresh jumbo prawns" },
-    { id: 2, name: "Crab", imageUrl: "images/nonveg/crab.webp", price: 450, description: "Fresh sea crab" },
-    { id: 8, name: "Sardines", imageUrl: "images/nonveg/sardines.webp", price: 260, description: "Fresh sardines" },
-    { id: 9, name: "Squid", imageUrl: "images/nonveg/squid.png", price: 540, description: "Fresh squid" },
-    { id: 10, name: "Turkey", imageUrl: "images/nonveg/turkey.png", price: 420, description: "Fresh turkey meat" },
+    { id: 14, name: "Fish", imageUrl: "images/nonveg/fish.png", price: 320, description: "Fresh river fish" },
+    { id: 15, name: "Mutton", imageUrl: "images/nonveg/mutton.png", price: 780, description: "Premium fresh mutton" },
+    { id: 16, name: "Prawns", imageUrl: "images/nonveg/prawns.png", price: 620, description: "Fresh jumbo prawns" },
+    { id: 17, name: "Crab", imageUrl: "images/nonveg/crab.webp", price: 450, description: "Fresh sea crab" },
+    { id: 18, name: "Sardines", imageUrl: "images/nonveg/sardines.webp", price: 260, description: "Fresh sardines" },
+    { id: 19, name: "Squid", imageUrl: "images/nonveg/squid.png", price: 540, description: "Fresh squid" },
+    { id: 20, name: "Turkey", imageUrl: "images/nonveg/turkey.png", price: 420, description: "Fresh turkey meat" },
   ];
 
   return (
@@ -43,7 +48,10 @@ function NonVeg() {
                 ₹{item.price}/kg
               </span>
 
-              <button className="nonveg-btn" onClick={() => toast.success(`${item.name} added to cart successfully!`)}>
+              <button className="nonveg-btn" onClick={() => {
+                addToCart(item);
+                toast.success(`${item.name} added to cart successfully!`)}
+            }>
                 Add to Cart
               </button>
             </div>

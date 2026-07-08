@@ -15,6 +15,7 @@ import Login from "./components/Login";
 import { useContext } from "react";
 import { CartContext } from "./contextApi/CartContext";
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/register" element={<Register/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/cart" element={<Cart/>} />
+            <Route path="/checkout" element={<Checkout/>} />
 
 
           </Routes>

@@ -1,221 +1,267 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
 }
 
 .milk-page{
-    padding: 8px 0 25px;
+    padding:4px 0 18px;
 }
 
-/* ================= HEADING ================= */
+/*================== HEADING ==================*/
 
 .milk-heading{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
 
-    margin-bottom: 55px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
 
-    font-size: 42px;
-    font-weight: 800;
+    margin-bottom:36px;
 
-    color: #1e293b;
+    font-size:32px;
+    font-weight:800;
 
-    letter-spacing: -0.5px;
+    color:#1e293b;
+
+    letter-spacing:-0.4px;
 }
 
 .milk-heading-icon{
-    font-size: 44px;
-    color: #3b82f6;
+
+    font-size:32px;
+
+    color:#3b82f6;
+
 }
 
-/* ================= GRID ================= */
+/*================== GRID ==================*/
 
 .milk-container{
-    list-style: none;
 
-    display: grid;
+    list-style:none;
 
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    display:grid;
 
-    gap: 34px;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:22px;
+
 }
 
-/* ================= CARD ================= */
+/*================== CARD ==================*/
 
 .milk-card{
-    background: linear-gradient(
+
+    background:linear-gradient(
         180deg,
-        #ffffff 0%,
-        #fcfcfd 100%
+        #ffffff,
+        #fcfcfd
     );
 
-    border: 1px solid #e8edf3;
+    border:1px solid #e8edf3;
 
-    border-radius: 30px;
+    border-radius:22px;
 
-    padding: 32px 28px;
+    padding:22px 18px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 
-    overflow: hidden;
+    overflow:hidden;
 
     box-shadow:
-        0 4px 8px rgba(15,23,42,0.02),
-        0 12px 35px rgba(15,23,42,0.06);
+        0 4px 8px rgba(15,23,42,.02),
+        0 10px 24px rgba(15,23,42,.05);
 
-    transition: all 0.35s ease;
+    transition:.3s ease;
+
 }
 
 .milk-card:hover{
-    transform:
-        translateY(-12px)
-        scale(1.02);
 
-    border-color: #dbe4ee;
+    transform:translateY(-6px);
+
+    border-color:#dbe4ee;
 
     box-shadow:
-        0 20px 45px rgba(15,23,42,0.08);
+        0 16px 35px rgba(15,23,42,.08);
+
 }
 
-/* ================= IMAGE ================= */
+/*================== IMAGE ==================*/
 
 .milk-image{
-    width: 190px;
-    height: 190px;
 
-    object-fit: contain;
+    width:145px;
+    height:145px;
 
-    padding: 18px;
+    object-fit:contain;
 
-    border-radius: 24px;
+    padding:14px;
 
-    background: linear-gradient(
+    border-radius:18px;
+
+    background:linear-gradient(
         180deg,
         #f8fafc,
         #eef2f7
     );
 
-    transition: all 0.4s ease;
+    transition:.3s;
+
 }
 
 .milk-card:hover .milk-image{
-    transform: scale(1.08);
+
+    transform:scale(1.05);
+
 }
 
-/* ================= CONTENT ================= */
+/*================== CONTENT ==================*/
 
 .milk-name{
-    margin-top: 24px;
 
-    font-size: 25px;
-    font-weight: 700;
+    margin-top:18px;
 
-    color: #1f2937;
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#1f2937;
+
+    text-align:center;
+
 }
 
 .milk-description{
-    margin-top: 14px;
 
-    text-align: center;
+    margin-top:10px;
 
-    color: #64748b;
+    text-align:center;
 
-    font-size: 15px;
+    color:#64748b;
 
-    line-height: 1.8;
+    font-size:13px;
+
+    line-height:1.6;
+
 }
 
-/* ================= FOOTER ================= */
+/*================== FOOTER ==================*/
 
 .milk-footer{
-    width: 100%;
 
-    margin-top: 32px;
+    width:100%;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-top:22px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
 }
 
 .milk-price{
-    font-size: 20px;
-    font-weight: 700;
 
-    color: #5375c0;
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#5375c0;
+
 }
 
 .milk-btn{
-    border: none;
 
-    padding: 13px 24px;
+    border:none;
 
-    border-radius: 16px;
+    padding:10px 18px;
 
-    background: linear-gradient(
+    border-radius:12px;
+
+    background:linear-gradient(
         135deg,
         #6981eb,
         #606de1
     );
 
-    color: white;
+    color:white;
 
-    font-size: 14px;
-    font-weight: 700;
+    font-size:13px;
 
-    cursor: pointer;
+    font-weight:700;
 
-    transition: all 0.3s ease;
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 
 .milk-btn:hover{
-    transform:
-        translateY(-3px)
-        scale(1.03);
 
-    background: linear-gradient(
+    transform:translateY(-2px);
+
+    background:linear-gradient(
         135deg,
         #5a67d8,
         #4c51bf
     );
 
     box-shadow:
-        0 12px 25px rgba(90,103,216,0.28);
+        0 10px 18px rgba(90,103,216,.25);
+
 }
 
 .milk-btn:active{
-    transform: scale(0.97);
+
+    transform:scale(.98);
+
 }
 
-/* ================= RESPONSIVE ================= */
+/*================== RESPONSIVE ==================*/
 
 @media(max-width:768px){
 
     .milk-heading{
-        font-size: 34px;
+
+        font-size:28px;
+
     }
 
     .milk-heading-icon{
-        font-size: 36px;
+
+        font-size:28px;
+
     }
 
     .milk-container{
-        gap: 22px;
+
+        gap:18px;
+
     }
 
     .milk-card{
-        padding: 26px 22px;
+
+        padding:18px 16px;
+
     }
 
     .milk-image{
-        width: 170px;
-        height: 170px;
+
+        width:125px;
+        height:125px;
+
     }
+
+    .milk-name{
+
+        font-size:18px;
+
+    }
+
 }

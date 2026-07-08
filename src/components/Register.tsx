@@ -3,6 +3,7 @@ import type { RegisterRequest } from "../interfaces/RegisterRequest";
 import { useForm } from "react-hook-form";
 import { serviceRegister } from "../services/AuthService";
 import { Link } from "react-router-dom";
+import "../css/Register.css";
 
 function Register() {
 
@@ -20,7 +21,8 @@ function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitLogics)}>
+    <div className="register-page">
+      <form onSubmit={handleSubmit(onSubmitLogics)}>
 
       <input
         type="text"
@@ -71,6 +73,7 @@ function Register() {
        </p>
 
     </form>
+    </div>
   );
 }
 
