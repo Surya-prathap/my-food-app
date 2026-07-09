@@ -5,7 +5,7 @@ import Home from "./Home";
 import VegItems from "./VegItems";
 import NonVeg from "./NonVeg";
 import Milk from "./Milk";
-import { LuHouse, LuMilk } from "react-icons/lu";
+import { LuHouse, LuMilk, LuShoppingCart, LuUserPlus } from "react-icons/lu";
 import { PiCarrotBold } from "react-icons/pi";
 import { GiChickenOven } from "react-icons/gi";
 import { ToastContainer } from "react-toastify";
@@ -27,16 +27,42 @@ function App() {
       <div className="app-container">
 
         <nav className="navbar">
-          <NavLink className="nav-link" to="/"><LuHouse size={30}/>Home</NavLink>
-          <NavLink className="nav-link" to="/veg-items"><PiCarrotBold size={30}/>Veg Items</NavLink>
-          <NavLink className="nav-link" to="/non-veg-items"><GiChickenOven size={30}/>Non Veg Items</NavLink>
-          <NavLink className="nav-link" to="/milk-items"><LuMilk size={30}/>Milk Items</NavLink>
-          <NavLink className="nav-link" to="/register">Register</NavLink>
-          <NavLink className="nav-link" to="/cart">Cart {cart.length} </NavLink>
 
+  <NavLink className="nav-link" to="/">
+    <LuHouse size={26}/>
+    <span>Home</span>
+  </NavLink>
 
+  <NavLink className="nav-link" to="/veg-items">
+    <PiCarrotBold size={26}/>
+    <span>Veg Items</span>
+  </NavLink>
 
-        </nav>
+  <NavLink className="nav-link" to="/non-veg-items">
+    <GiChickenOven size={26}/>
+    <span>Non Veg Items</span>
+  </NavLink>
+
+  <NavLink className="nav-link" to="/milk-items">
+    <LuMilk size={26}/>
+    <span>Milk Items</span>
+  </NavLink>
+
+  <NavLink className="nav-link cart-link" to="/cart">
+    <LuShoppingCart size={26}/>
+    <span>Cart</span>
+
+    <div className="cart-count">
+      {cart.length}
+    </div>
+  </NavLink>
+
+  <NavLink className="nav-link" to="/register">
+  <LuUserPlus size={26}/>
+    <span>Register</span>
+  </NavLink>
+
+</nav>
 
         <div className="content-container">
           <Routes>

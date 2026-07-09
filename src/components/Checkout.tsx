@@ -12,6 +12,9 @@ import {
   FaTruck,
   FaCheckCircle,
 } from "react-icons/fa";
+import QRCode from "react-qr-code";
+import { sendOrderEmail } from "../services/EmailService";
+import { getAddressFromLocation } from "../apis/LocationApi";
 
 function Checkout() {
   const { cart, clearCart } = useContext(CartContext);
@@ -29,25 +32,121 @@ function Checkout() {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
   const [paymentMode, setPaymentMode] = useState("");
 
-  const placeOrder = () => {
+  const [errors, setErrors] = useState({
+  name: "",
+  mobile: "",
+  email: "",
+  address: "",
+});
+
+
+const validateField = (field: string, value: string) => {
+  let error = "";
+
+  switch (field) {
+    case "name":
+      if (!value.trim()) {
+        error = "Name is required";
+      } else if (!/^[A-Za-z ]+$/.test(value)) {
+        error = "Only alphabets are allowed";
+      }
+      break;
+
+    case "mobile":
+      if (!/^[6-9]\d{9}$/.test(value)) {
+        error = "Enter a valid 10-digit mobile number";
+      }
+      break;
+
+    case "email":
+      if (
+        value &&
+        !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
+      ) {
+        error = "Invalid email address";
+      }
+      break;
+
+    case "address":
+      if (value.trim().length < 10) {
+        error = "Address should be at least 10 characters";
+      }
+      break;
+  }
+
+  setErrors((prev) => ({
+    ...prev,
+    [field]: error,
+  }));
+};
+
+  const placeOrder = async () => {
     if (!name || !mobile || !address) {
       alert("Please fill all address details.");
       return;
     }
-
     if (!paymentMode) {
       alert("Please select a payment method.");
       return;
     }
-
     alert("Order Placed Successfully!");
 
-    clearCart();
+    //prepare the email information 
+    // Map the template params & our Data.
+   
+  const order = {
+      order_id: Math.floor(Math.random() * 100000),
+      name: name,
+      email: email, // Recipient email
+	  
+      orders: cart.map((item) => ({
+        name: item.name,
+        units: item.quantity,
+        price: item.price,
+        image_url: item.imageUrl,
+      })),
 
+      cost: {
+        shipping: 100,
+        tax: 100,
+        coupon: discount,
+        total: finalAmount,
+      },
+    };
+    
+    await sendOrderEmail(order);
+
+    clearCart();
     navigate("/cart");
   };
+
+    const getCurrentLocation = () => {
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      try {
+        const data = await getAddressFromLocation(lat, lng);
+
+        setAddress(data.display_name);
+      } catch (error) {
+        alert("Unable to fetch address.");
+      }
+    },
+    (error) => {
+      alert(error.message);
+    }
+  );
+};
 
   return (
     <div className="checkout-page">
@@ -105,12 +204,17 @@ function Checkout() {
                   type="text"
                   placeholder="Enter your full name"
                   value={name}
-                  onChange={(e) =>
-                    setName(e.target.value)
-                  }
+                  onChange={(e) =>{
+                    setName(e.target.value);
+                    validateField("name", e.target.value);
+                  }}
                 />
 
               </div>
+
+              {errors.name && (
+                <span className="error-text">{errors.name}</span>
+              )}
 
             </div>
 
@@ -128,14 +232,56 @@ function Checkout() {
                   type="text"
                   placeholder="Enter mobile number"
                   value={mobile}
-                  onChange={(e) =>
-                    setMobile(e.target.value)
-                  }
+                  onChange={(e) =>{
+                    setMobile(e.target.value);
+                    validateField("mobile", e.target.value);
+                  }}
                 />
 
               </div>
 
             </div>
+
+            {errors.mobile && (
+                <span className="error-text">{errors.mobile}</span>
+            )}
+
+            <div className="input-group">
+
+              <label>
+                Customer Email
+              </label>
+
+              <div className="input-box">
+
+                <FaUser />
+
+                <input
+                  type="text"
+                  placeholder="Enter your email id"
+                  value={email}
+                  onChange={(e) =>{
+                    setEmail(e.target.value);
+                    validateField("email", e.target.value);
+                  }}
+                />
+
+              </div>
+
+            </div>
+
+            {errors.email && (
+                <span className="error-text">{errors.email}</span>
+             )}
+
+            <button
+    type="button"
+    onClick={getCurrentLocation}
+    className="location-btn"
+  >
+    <FaMapMarkerAlt />
+    Use Current Location
+  </button>
 
             <div className="input-group">
 
@@ -147,12 +293,17 @@ function Checkout() {
                 rows={5}
                 placeholder="Enter complete delivery address..."
                 value={address}
-                onChange={(e) =>
-                  setAddress(e.target.value)
-                }
+                onChange={(e) =>{
+                  setAddress(e.target.value);
+                  validateField("address", e.target.value);
+                }}
               />
 
             </div>
+
+            {errors.address && (
+                <span className="error-text">{errors.address}</span>
+              )}
 
           </section>
 
@@ -180,6 +331,7 @@ function Checkout() {
                   setPaymentMode(e.target.value)
                 }
               />
+
 
               <div className="payment-content">
 
@@ -238,11 +390,18 @@ function Checkout() {
 
               <div className="payment-info">
 
-                <img
-                  src="/images/qr.png"
-                  alt="UPI QR Code"
-                  className="upi-qr"
-                />
+                {paymentMode === "UPI" && (
+              <div className="qr-section">
+
+                  <h4>Scan UPI QR to Pay ₹{finalAmount.toFixed(2)}</h4>
+
+                  <QRCode
+                     value={`upi://pay?pa=9908129796@ybl&pn=FreshMart&am=${finalAmount.toFixed(2)}&cu=INR`}
+                  />
+
+                   <p>UPI ID: 9908129796@ybl</p>
+                   </div>
+            )}
 
                 <h3>
                   Scan & Pay

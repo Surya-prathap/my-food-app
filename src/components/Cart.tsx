@@ -5,16 +5,13 @@ import { coupons } from "../data/Coupons";
 
 import {
   FaShoppingCart,
-  FaTrash,
-  FaPlus,
-  FaMinus,
   FaTag,
   FaMoneyBillWave,
   FaCheckCircle,
-  FaTruck,
-  FaShieldAlt,
 } from "react-icons/fa";
+import { FiMinus,FiPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { LuShieldCheck, LuTrash2, LuTruck } from "react-icons/lu";
 
 function Cart() {
   const {
@@ -60,7 +57,7 @@ function Cart() {
 
       <div className="cart-header">
         <FaShoppingCart />
-        <h1>My Shopping Cart</h1>
+        <h1>Shopping Cart</h1>
       </div>
 
       {cart.length === 0 ? (
@@ -68,7 +65,17 @@ function Cart() {
         <div className="empty-cart">
           <FaShoppingCart className="empty-icon" />
           <h2>Your Cart is Empty</h2>
-          <p>Add some products to continue shopping.</p>
+      <p>
+        Looks like your basket is empty.
+        Browse our fresh collection and start shopping.
+       </p>
+
+       <button
+           className="continue-btn"
+          onClick={() => navigate("/")}
+        >
+        Continue Shopping
+        </button>
         </div>
 
       ) : (
@@ -116,7 +123,7 @@ function Cart() {
                         decreaseQuantity(item.id)
                       }
                     >
-                      <FaMinus />
+                      <FiMinus />
                     </button>
 
                     <span>{item.quantity}</span>
@@ -126,7 +133,7 @@ function Cart() {
                         increaseQuantity(item.id)
                       }
                     >
-                      <FaPlus />
+                      <FiPlus />
                     </button>
 
                   </div>
@@ -137,7 +144,7 @@ function Cart() {
                       removeFromCart(item.id)
                     }
                   >
-                    <FaTrash />
+                    <LuTrash2/>
                     Remove
                   </button>
 
@@ -154,7 +161,7 @@ function Cart() {
           <div className="summary-card">
 
             <h2>
-              Order Summary
+              Order Overview
             </h2>
 
             <div className="coupon-box">
@@ -168,7 +175,7 @@ function Cart() {
 
                 <input
                   ref={couponRef}
-                  placeholder="Enter Coupon"
+                  placeholder="Enter promo code"
                 />
 
                 <button
@@ -222,7 +229,7 @@ function Cart() {
             <div className="summary-row">
 
               <span>
-                <FaTruck />
+                <LuTruck />
                 Delivery
               </span>
 
@@ -248,13 +255,13 @@ function Cart() {
             <div className="secure-box">
 
               <p>
-                <FaShieldAlt />
-                100% Secure Payments
+                <LuShieldCheck />
+                Encrypted & Secure Payments
               </p>
 
               <p>
-                <FaTruck />
-                Fast Delivery
+                <LuTruck />
+                Same Day Fresh Delivery
               </p>
 
             </div>
@@ -270,7 +277,7 @@ function Cart() {
               })
             }
             className="checkout-btn">
-              Proceed to Checkout
+              Continue to Checkout
             </button>
 
           </div>
