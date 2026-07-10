@@ -16,11 +16,16 @@ import { useContext } from "react";
 import { CartContext } from "./contextApi/CartContext";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
+import { OrderContext } from "./contextApi/OrderContext";
+import Order from "./components/Orders";
+import { HiOutlineCube } from "react-icons/hi";
+
 
 
 function App() {
 
   let {cart} = useContext(CartContext);
+  let {orders} = useContext(OrderContext);
 
   return (
     <BrowserRouter>
@@ -57,6 +62,15 @@ function App() {
     </div>
   </NavLink>
 
+  <NavLink className="nav-link cart-link" to="/orders">
+    <HiOutlineCube size={26}/>
+    <span>Order</span>
+
+    <div className="cart-count">
+      {orders.length}
+    </div>
+  </NavLink>
+
   <NavLink className="nav-link" to="/register">
   <LuUserPlus size={26}/>
     <span>Register</span>
@@ -74,6 +88,7 @@ function App() {
             <Route path="/login" element={<Login/>} />
             <Route path="/cart" element={<Cart/>} />
             <Route path="/checkout" element={<Checkout/>} />
+            <Route path="/orders" element={< Order/>} />
 
 
           </Routes>

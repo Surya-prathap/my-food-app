@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CartContext } from "../contextApi/CartContext";
 import "../css/Checkout.css";
+import "../css/SweetAlert.css"
 
 import {
   FaMapMarkerAlt,
@@ -15,12 +16,16 @@ import {
 import QRCode from "react-qr-code";
 import { sendOrderEmail } from "../services/EmailService";
 import { getAddressFromLocation } from "../apis/LocationApi";
+import { OrderContext } from "../contextApi/OrderContext";
+import Swal from "sweetalert2";
 
 function Checkout() {
   const { cart, clearCart } = useContext(CartContext);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const {addOrder} = useContext(OrderContext);
 
   const {
     grandTotal = 0,
@@ -83,6 +88,32 @@ const validateField = (field: string, value: string) => {
   }));
 };
 
+const orderData = {
+      orderNumber: Math.floor(Math.random() * 100000),
+
+      customerName: name,
+
+      mobile: mobile,
+
+      email: email,
+
+      address: address,
+
+      paymentMode: paymentMode,
+
+      grandTotal: grandTotal,
+
+      discount: discount,
+
+      finalAmount: finalAmount,
+
+      orderDate: new Date().toLocaleString(),
+
+      status: "PLACED",
+
+      items: [...cart],
+    };
+
   const placeOrder = async () => {
     if (!name || !mobile || !address) {
       alert("Please fill all address details.");
@@ -92,7 +123,9 @@ const validateField = (field: string, value: string) => {
       alert("Please select a payment method.");
       return;
     }
-    alert("Order Placed Successfully!");
+    // alert("Order Placed Successfully!");
+
+     
 
     //prepare the email information 
     // Map the template params & our Data.
@@ -117,10 +150,50 @@ const validateField = (field: string, value: string) => {
       },
     };
     
-    await sendOrderEmail(order);
+   
+  await sendOrderEmail(order);
 
-    clearCart();
-    navigate("/cart");
+addOrder(orderData);
+
+Swal.fire({
+  icon: "success",
+  title: "Order Placed Successfully",
+  html: `
+      <p>Thank you for shopping with <b>FreshMart</b>.</p>
+
+      <div class="order-id-box">
+          <span>Order Number</span>
+          <h3>#${orderData.orderNumber}</h3>
+      </div>
+
+      <p>You can track your order anytime from <b>My Orders</b>.</p>
+  `,
+  customClass:{
+      popup:"fm-popup",
+      title:"fm-title",
+      confirmButton:"fm-confirm",
+      cancelButton:"fm-cancel"
+  },
+  buttonsStyling:false,
+  showCancelButton:true,
+  confirmButtonText:"Track Order",
+  cancelButtonText:"Continue Shopping",
+  timer:5000,
+  timerProgressBar:true
+}).then((result)=>{
+
+    if(result.isConfirmed){
+        navigate("/orders");
+    }
+
+    if(result.dismiss===Swal.DismissReason.timer){
+        navigate("/orders");
+    }
+
+});
+
+clearCart();
+
   };
 
     const getCurrentLocation = () => {
