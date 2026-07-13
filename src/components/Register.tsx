@@ -1,24 +1,46 @@
 
 import type { RegisterRequest } from "../interfaces/RegisterRequest";
 import { useForm } from "react-hook-form";
-import { serviceRegister } from "../services/AuthService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/Register.css";
 
 function Register() {
 
   const { register, handleSubmit, reset } = useForm<RegisterRequest>();
 
- const onSubmitLogics = async (data:RegisterRequest) => {
-      try {
-            const response = await serviceRegister(data);
-            alert("Registration Success");
-            console.log(response);
-            reset();
-        } catch (error) {
-            console.log(error);
-        }
-  };
+ let navigate = useNavigate();
+
+    let onSubmitLogics = (data: RegisterRequest) => {
+
+        console.log(data);
+
+        // registerSevice(data);
+
+      // Read existing users
+      const users: RegisterRequest[] = JSON.parse(
+        localStorage.getItem("users") || "[]"
+      );
+
+    // Check duplicate email
+  const userExists = users.some(
+    (user) => user.email === data.email
+  );
+
+    if (userExists) {
+    alert("Email already registered");
+    return;
+  }
+    // Add id
+  const newUser = { id: users.length + 1, ...data};
+
+   // Add new user to array
+  users.push(newUser);
+
+  localStorage.setItem("users", JSON.stringify(users));
+        alert("Registration successfulll");
+        navigate("/login");
+        reset();
+    }
 
   return (
     <div className="register-page">

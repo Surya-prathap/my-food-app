@@ -4,11 +4,13 @@ import { toast } from "react-toastify";
 import type { Product } from "./interfaces/Product";
 import { useContext } from "react";
 import { CartContext } from "./contextApi/CartContext";
+import { useNavigate } from "react-router-dom";
 
 
 function NonVeg() {
 
   let {addToCart} = useContext(CartContext);
+  const navigate = useNavigate();
 
   const nonVegItems: Product[] = [
     { id: 11, name: "Chicken", imageUrl: "images/nonveg/chicken.webp", price: 280, description: "Fresh farm chicken" },
@@ -48,12 +50,29 @@ function NonVeg() {
                 ₹{item.price}/kg
               </span>
 
-              <button className="nonveg-btn" onClick={() => {
-                addToCart(item);
-                toast.success(`${item.name} added to cart successfully!`)}
-            }>
-                Add to Cart
-              </button>
+              <button
+  onClick={() => {
+    const loggedInUser = JSON.parse(
+      localStorage.getItem("loggedInUser") || "null"
+    );
+
+    if (!loggedInUser) {
+      toast.warning("Please login first!");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+
+      return;
+    }
+
+    toast.success(`${item.name} Added Successfully`);
+    addToCart(item);
+  }}
+  className="nonveg-btn"
+>
+  Add Cart
+</button>
             </div>
           </li>
         ))}

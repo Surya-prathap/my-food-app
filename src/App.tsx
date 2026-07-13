@@ -5,20 +5,21 @@ import Home from "./Home";
 import VegItems from "./VegItems";
 import NonVeg from "./NonVeg";
 import Milk from "./Milk";
-import { LuHouse, LuMilk, LuShoppingCart, LuUserPlus } from "react-icons/lu";
+import { LuHouse, LuMilk, LuShoppingCart } from "react-icons/lu";
 import { PiCarrotBold } from "react-icons/pi";
 import { GiChickenOven } from "react-icons/gi";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "./contextApi/CartContext";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import { OrderContext } from "./contextApi/OrderContext";
 import Order from "./components/Orders";
 import { HiOutlineCube } from "react-icons/hi";
+import { FaUserPlus } from "react-icons/fa";
 
 
 
@@ -26,6 +27,17 @@ function App() {
 
   let {cart} = useContext(CartContext);
   let {orders} = useContext(OrderContext);
+
+  // reading the data from local storage 
+  const [loggedInUser] = useState(
+    JSON.parse(localStorage.getItem("loggedInUser") || "null")
+  );
+
+
+  const logout = () => {
+    localStorage.removeItem("loggedInUser");
+    window.location.reload();
+  };
 
   return (
     <BrowserRouter>
@@ -71,10 +83,27 @@ function App() {
     </div>
   </NavLink>
 
-  <NavLink className="nav-link" to="/register">
-  <LuUserPlus size={26}/>
-    <span>Register</span>
-  </NavLink>
+  {loggedInUser ? (
+              <>
+                <span className="font-semibold">
+                  Welcome <b>{loggedInUser.name}</b>
+                </span>
+
+                <button
+                  onClick={logout}
+                  className="logout-btn"
+                 >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <NavLink to="/register" className="nav-link">
+                  <FaUserPlus />
+                      Register
+                </NavLink>
+              </>
+            )}
 
 </nav>
 
